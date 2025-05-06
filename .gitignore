@@ -1,0 +1,88 @@
+#########################
+# Build Folders
+#########################
+bin/
+obj/
+publish/
+Generated/
+
+#########################
+# User/IDE Settings
+#########################
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+*.cache
+*.cachefile
+*.userprefs
+
+# Rider / JetBrains
+.idea/
+.ReSharper*/
+*_ReSharper*/
+*.DotSettings.user
+
+# Visual Studio IntelliSense
+*.VC.db
+*.opendb
+
+#########################
+# Build Outputs
+#########################
+*.dll
+*.exe
+*.app
+*.pdb
+*.iobj
+*.ipdb
+
+#########################
+# NuGet
+#########################
+*.nupkg
+*.snupkg
+packages/
+# Uncomment below if using SDK-style project
+# !packages/*.props
+# !packages/*.targets
+
+#########################
+# Logs & Temp Files
+#########################
+*.log
+*.tlog
+*.tmp
+*.bak
+*.swp
+
+#########################
+# Test Results
+#########################
+TestResults/
+*.trx
+*.coverage
+*.coveragexml
+
+#########################
+# System Files
+#########################
+.DS_Store
+Thumbs.db
+ehthumbs.db
+
+#########################
+# Office Temp Files
+#########################
+~$*
+
+#########################
+# Application Insights
+#########################
+ApplicationInsights.config
+
+#########################
+# VS Code (Optional)
+#########################
+.vscode/
