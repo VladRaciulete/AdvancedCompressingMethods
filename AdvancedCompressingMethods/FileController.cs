@@ -16,6 +16,7 @@ namespace AdvancedCompressingMethods
         private byte writeBuffer;
         private int readCounter;
         private int writeCounter;
+        private long inputFileLength;
 
         public FileController(string inputFileName, string outputFileName)
         {
@@ -29,12 +30,21 @@ namespace AdvancedCompressingMethods
             writeBuffer = 0;
             readCounter = 0;
             writeCounter = 0;
+
+            inputFileLength = inputFileStream.Length;
         }
 
         public void close()
         {
             reader.Close();
             writer.Close();
+        }
+
+        public long getRemainingBitsLeft() {
+            long currentPosition = inputFileStream.Position;
+            long remainingBytes = inputFileLength - currentPosition;
+            long remainingBits = remainingBytes * 8;
+            return remainingBits;
         }
 
         public byte ReadByte()
@@ -51,22 +61,13 @@ namespace AdvancedCompressingMethods
         {
             if (readCounter == 0)
             {
-                // read a whole byte and put it into the readBuffer
                 readBuffer = reader.ReadByte();
                 readCounter = 8;
-                Console.WriteLine(Convert.ToString(readBuffer, 2).PadLeft(8, '0'));
             }
 
             if (readCounter > 0)
             {
-                // read one bit from the readBuffer
-                //readBuffer
-
-                //int firstBit = readBuffer.Value
-
                 int firstBit = (readBuffer >> (7 - (8 - readCounter))) & 1;
-                Console.WriteLine("read bit number " + (8 - readCounter) + " from the buffer => " + firstBit);
-
                 readCounter -= 1;
                 return firstBit;
             }
@@ -76,40 +77,36 @@ namespace AdvancedCompressingMethods
 
         public void WriteSingleBit(int bit)
         {
-            Console.WriteLine("WriteSingleBit");
-            Console.WriteLine(Convert.ToString(writeBuffer, 2).PadLeft(8, '0'));
-            Console.Write("Bit ");
-            Console.WriteLine(Convert.ToString(bit, 2).PadLeft(8, '0'));
             if (writeCounter < 8)
             {
-                //put the bit in the writeBuffer
-
                 writeBuffer = (byte)(writeBuffer << 1 | bit);
-                Console.WriteLine(Convert.ToString(writeBuffer, 2).PadLeft(8, '0'));
-
                 writeCounter += 1;
 
                 if (writeCounter == 8)
                 {
-                    Console.Write("counter = 8 ");
-                    //the byte is full write it inside the file
-                    Console.WriteLine(writeBuffer);
                     writer.Write(writeBuffer);
                     writeCounter = 0;
                 }
             }
-            else
-            {
+        }
 
+        public int[] ReadNBits(int n)
+        {
+            int[] vector = new int[n];
+
+            for (int i = 0; i < n; i++) {
+                vector[i] = ReadSingleBit();
             }
+
+            return vector;
         }
 
-        public void ReadNBits(int n)
+        public void WriteNBits(int[] vector, int n)
         {
-        }
-
-        public void WriteNBits(int n)
-        {
+            for (int i = 0; i < n; i++)
+            {
+                WriteSingleBit(vector[i]);
+            }
         }
 
     }
