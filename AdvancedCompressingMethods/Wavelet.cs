@@ -8,10 +8,10 @@ namespace AdvancedCompressingMethods
 {
     internal class Wavelet
     {
-        private double[] analysisLow;
-        private double[] analysisHigh;
-        private double[] synthesisLow;
-        private double[] synthesisHigh;
+        public double[] analysisLow;
+        public double[] analysisHigh;
+        public double[] synthesisLow;
+        public double[] synthesisHigh;
 
         public Wavelet()
         {
