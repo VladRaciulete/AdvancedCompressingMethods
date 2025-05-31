@@ -8,15 +8,16 @@ namespace AdvancedCompressingMethods
 {
     public partial class Form1 : Form
     {
-        FileController fileController = new FileController("input.mp4", "output.mp4");
+        //FileController fileController = new FileController("input.mp4", "output.mp4");
         Wavelet wavelet = new Wavelet();
         private Bitmap loadedImage;
         private Bitmap loadedImageCopy;
-        int imageWdith;
+        int imageWidth;
         int imageHeight;
-        int currentWdith;
+        int currentWidth;
         int currentHeight;
-        int scale = 0;
+        int scale = 1;
+        int offset = 0;
 
         public Form1()
         {
@@ -26,6 +27,12 @@ namespace AdvancedCompressingMethods
         private void Form1_Load(object sender, EventArgs e)
         {
         }
+        private void UpdateImageDimensions()
+        {
+            this.currentWidth = this.currentWidth / 2;
+            this.currentHeight = this.currentHeight / 2;
+        }
+
 
         private int NormalizeIndex(int n, int maxValue)
         {
@@ -59,27 +66,33 @@ namespace AdvancedCompressingMethods
 
         private void ScaleImage()
         {
-            //TODO
+            labelMinError.Text = "h|w: " + currentHeight + " x " + currentWidth;
+
             for (int i = 0; i < imageHeight; i++)
             {
-                for (int j = 0; j < imageWdith; j++)
+                for (int j = 0; j < imageWidth; j++)
                 {
-                    Color pixel = loadedImageCopy.GetPixel(i, j);
+                    if (i > currentHeight || j > currentWidth)
+                    {
+                        Color pixel = loadedImageCopy.GetPixel(i, j);
 
-                    loadedImageCopy.SetPixel(i, j, Color.FromArgb(
-                            NormalizePixelValue(pixel.R * scale),
-                            NormalizePixelValue(pixel.G * scale),
-                            NormalizePixelValue(pixel.B * scale)
-                        ));
+                        loadedImageCopy.SetPixel(i, j, Color.FromArgb(
+                                NormalizePixelValue(pixel.R * this.scale + this.offset),
+                                NormalizePixelValue(pixel.G * this.scale + this.offset),
+                                NormalizePixelValue(pixel.B * this.scale + this.offset)
+                            ));
+                    }
                 }
             }
+
+            loadedImageCopyPictureBox.Image = loadedImageCopy;
         }
 
         private void LoadButton_Click(object sender, EventArgs e)
         {
             OpenFileDialog openFileDialog = new OpenFileDialog
             {
-                Filter = "Image Files|*.bmp",
+                Filter = "Image Files|*.bmp; *.png",
                 Title = "Select an Image"
             };
 
@@ -96,13 +109,14 @@ namespace AdvancedCompressingMethods
                     loadedImageCopyPictureBox.Image = loadedImageCopy;
                     loadedImageCopyPictureBox.SizeMode = PictureBoxSizeMode.StretchImage;
 
-                    this.imageWdith = loadedImage.Width;
+                    this.imageWidth = loadedImage.Width;
                     this.imageHeight = loadedImage.Height;
 
-                    this.currentWdith = loadedImage.Width;
+                    this.currentWidth = loadedImage.Width;
                     this.currentHeight = loadedImage.Height;
 
                     this.textBoxScale.Text = scale.ToString();
+                    this.textBoxOffset.Text = offset.ToString();
                 }
                 catch (Exception ex)
                 {
@@ -113,37 +127,34 @@ namespace AdvancedCompressingMethods
 
         private void AnalisysHorizontal(int level)
         {
-            this.currentWdith = this.imageWdith / level;
-            this.currentHeight = this.imageHeight / level;
-
             double[] high = new double[currentHeight];
             double[] low = new double[currentHeight];
 
             for (int i = 0; i < currentHeight; i++)
             {
-                for (int j = 0; j < currentWdith; j++)
+                for (int j = 0; j < currentWidth; j++)
                 {
                     low[j] =
-                    loadedImage.GetPixel(NormalizeIndex(j - 4, currentWdith - 1), i).R * this.wavelet.analysisLow[0] +
-                    loadedImage.GetPixel(NormalizeIndex(j - 3, currentWdith - 1), i).R * this.wavelet.analysisLow[1] +
-                    loadedImage.GetPixel(NormalizeIndex(j - 2, currentWdith - 1), i).R * this.wavelet.analysisLow[2] +
-                    loadedImage.GetPixel(NormalizeIndex(j - 1, currentWdith - 1), i).R * this.wavelet.analysisLow[3] +
-                    loadedImage.GetPixel(NormalizeIndex(j, currentWdith - 1), i).R * this.wavelet.analysisLow[4] +
-                    loadedImage.GetPixel(NormalizeIndex(j + 1, currentWdith - 1), i).R * this.wavelet.analysisLow[5] +
-                    loadedImage.GetPixel(NormalizeIndex(j + 2, currentWdith - 1), i).R * this.wavelet.analysisLow[6] +
-                    loadedImage.GetPixel(NormalizeIndex(j + 3, currentWdith - 1), i).R * this.wavelet.analysisLow[7] +
-                    loadedImage.GetPixel(NormalizeIndex(j + 4, currentWdith - 1), i).R * this.wavelet.analysisLow[8];
+                    loadedImage.GetPixel(NormalizeIndex(j - 4, currentWidth - 1), i).R * this.wavelet.analysisLow[0] +
+                    loadedImage.GetPixel(NormalizeIndex(j - 3, currentWidth - 1), i).R * this.wavelet.analysisLow[1] +
+                    loadedImage.GetPixel(NormalizeIndex(j - 2, currentWidth - 1), i).R * this.wavelet.analysisLow[2] +
+                    loadedImage.GetPixel(NormalizeIndex(j - 1, currentWidth - 1), i).R * this.wavelet.analysisLow[3] +
+                    loadedImage.GetPixel(NormalizeIndex(j, currentWidth - 1), i).R * this.wavelet.analysisLow[4] +
+                    loadedImage.GetPixel(NormalizeIndex(j + 1, currentWidth - 1), i).R * this.wavelet.analysisLow[5] +
+                    loadedImage.GetPixel(NormalizeIndex(j + 2, currentWidth - 1), i).R * this.wavelet.analysisLow[6] +
+                    loadedImage.GetPixel(NormalizeIndex(j + 3, currentWidth - 1), i).R * this.wavelet.analysisLow[7] +
+                    loadedImage.GetPixel(NormalizeIndex(j + 4, currentWidth - 1), i).R * this.wavelet.analysisLow[8];
 
                     high[j] =
-                    loadedImage.GetPixel(NormalizeIndex(j - 4, currentWdith - 1), i).R * this.wavelet.analysisHigh[0] +
-                    loadedImage.GetPixel(NormalizeIndex(j - 3, currentWdith - 1), i).R * this.wavelet.analysisHigh[1] +
-                    loadedImage.GetPixel(NormalizeIndex(j - 2, currentWdith - 1), i).R * this.wavelet.analysisHigh[2] +
-                    loadedImage.GetPixel(NormalizeIndex(j - 1, currentWdith - 1), i).R * this.wavelet.analysisHigh[3] +
-                    loadedImage.GetPixel(NormalizeIndex(j, currentWdith - 1), i).R * this.wavelet.analysisHigh[4] +
-                    loadedImage.GetPixel(NormalizeIndex(j + 1, currentWdith - 1), i).R * this.wavelet.analysisHigh[5] +
-                    loadedImage.GetPixel(NormalizeIndex(j + 2, currentWdith - 1), i).R * this.wavelet.analysisHigh[6] +
-                    loadedImage.GetPixel(NormalizeIndex(j + 3, currentWdith - 1), i).R * this.wavelet.analysisHigh[7] +
-                    loadedImage.GetPixel(NormalizeIndex(j + 4, currentWdith - 1), i).R * this.wavelet.analysisHigh[8];
+                    loadedImage.GetPixel(NormalizeIndex(j - 4, currentWidth - 1), i).R * this.wavelet.analysisHigh[0] +
+                    loadedImage.GetPixel(NormalizeIndex(j - 3, currentWidth - 1), i).R * this.wavelet.analysisHigh[1] +
+                    loadedImage.GetPixel(NormalizeIndex(j - 2, currentWidth - 1), i).R * this.wavelet.analysisHigh[2] +
+                    loadedImage.GetPixel(NormalizeIndex(j - 1, currentWidth - 1), i).R * this.wavelet.analysisHigh[3] +
+                    loadedImage.GetPixel(NormalizeIndex(j, currentWidth - 1), i).R * this.wavelet.analysisHigh[4] +
+                    loadedImage.GetPixel(NormalizeIndex(j + 1, currentWidth - 1), i).R * this.wavelet.analysisHigh[5] +
+                    loadedImage.GetPixel(NormalizeIndex(j + 2, currentWidth - 1), i).R * this.wavelet.analysisHigh[6] +
+                    loadedImage.GetPixel(NormalizeIndex(j + 3, currentWidth - 1), i).R * this.wavelet.analysisHigh[7] +
+                    loadedImage.GetPixel(NormalizeIndex(j + 4, currentWidth - 1), i).R * this.wavelet.analysisHigh[8];
                 }
 
                 int mergedVectorIndex = 0;
@@ -161,7 +172,7 @@ namespace AdvancedCompressingMethods
                     mergedVectorIndex++;
                 }
 
-                for (int x = 0; x < currentWdith; x++)
+                for (int x = 0; x < currentWidth; x++)
                 {
                     loadedImageCopy.SetPixel(x, i, Color.FromArgb(mergedVector[x], mergedVector[x], mergedVector[x]));
                 }
@@ -170,41 +181,39 @@ namespace AdvancedCompressingMethods
             }
             loadedImageCopyPictureBox.Image = loadedImageCopy;
 
+            //UpdateImageDimensions();
         }
 
         private void AnalisysVertical(int level)
         {
-            this.currentWdith = this.imageWdith / level;
-            this.currentHeight = this.imageHeight / level;
-
             double[] high = new double[currentHeight];
             double[] low = new double[currentHeight];
 
             for (int i = 0; i < currentHeight; i++)
             {
-                for (int j = 0; j < currentWdith; j++)
+                for (int j = 0; j < currentWidth; j++)
                 {
                     low[j] =
-                    loadedImage.GetPixel(i, NormalizeIndex(j - 4, currentWdith - 1)).R * this.wavelet.analysisLow[0] +
-                    loadedImage.GetPixel(i, NormalizeIndex(j - 3, currentWdith - 1)).R * this.wavelet.analysisLow[1] +
-                    loadedImage.GetPixel(i, NormalizeIndex(j - 2, currentWdith - 1)).R * this.wavelet.analysisLow[2] +
-                    loadedImage.GetPixel(i, NormalizeIndex(j - 1, currentWdith - 1)).R * this.wavelet.analysisLow[3] +
-                    loadedImage.GetPixel(i, NormalizeIndex(j, currentWdith - 1)).R * this.wavelet.analysisLow[4] +
-                    loadedImage.GetPixel(i, NormalizeIndex(j + 1, currentWdith - 1)).R * this.wavelet.analysisLow[5] +
-                    loadedImage.GetPixel(i, NormalizeIndex(j + 2, currentWdith - 1)).R * this.wavelet.analysisLow[6] +
-                    loadedImage.GetPixel(i, NormalizeIndex(j + 3, currentWdith - 1)).R * this.wavelet.analysisLow[7] +
-                    loadedImage.GetPixel(i, NormalizeIndex(j + 4, currentWdith - 1)).R * this.wavelet.analysisLow[8];
+                    loadedImage.GetPixel(i, NormalizeIndex(j - 4, currentWidth - 1)).R * this.wavelet.analysisLow[0] +
+                    loadedImage.GetPixel(i, NormalizeIndex(j - 3, currentWidth - 1)).R * this.wavelet.analysisLow[1] +
+                    loadedImage.GetPixel(i, NormalizeIndex(j - 2, currentWidth - 1)).R * this.wavelet.analysisLow[2] +
+                    loadedImage.GetPixel(i, NormalizeIndex(j - 1, currentWidth - 1)).R * this.wavelet.analysisLow[3] +
+                    loadedImage.GetPixel(i, NormalizeIndex(j, currentWidth - 1)).R * this.wavelet.analysisLow[4] +
+                    loadedImage.GetPixel(i, NormalizeIndex(j + 1, currentWidth - 1)).R * this.wavelet.analysisLow[5] +
+                    loadedImage.GetPixel(i, NormalizeIndex(j + 2, currentWidth - 1)).R * this.wavelet.analysisLow[6] +
+                    loadedImage.GetPixel(i, NormalizeIndex(j + 3, currentWidth - 1)).R * this.wavelet.analysisLow[7] +
+                    loadedImage.GetPixel(i, NormalizeIndex(j + 4, currentWidth - 1)).R * this.wavelet.analysisLow[8];
 
                     high[j] =
-                    loadedImage.GetPixel(i, NormalizeIndex(j - 4, currentWdith - 1)).R * this.wavelet.analysisHigh[0] +
-                    loadedImage.GetPixel(i, NormalizeIndex(j - 3, currentWdith - 1)).R * this.wavelet.analysisHigh[1] +
-                    loadedImage.GetPixel(i, NormalizeIndex(j - 2, currentWdith - 1)).R * this.wavelet.analysisHigh[2] +
-                    loadedImage.GetPixel(i, NormalizeIndex(j - 1, currentWdith - 1)).R * this.wavelet.analysisHigh[3] +
-                    loadedImage.GetPixel(i, NormalizeIndex(j, currentWdith - 1)).R * this.wavelet.analysisHigh[4] +
-                    loadedImage.GetPixel(i, NormalizeIndex(j + 1, currentWdith - 1)).R * this.wavelet.analysisHigh[5] +
-                    loadedImage.GetPixel(i, NormalizeIndex(j + 2, currentWdith - 1)).R * this.wavelet.analysisHigh[6] +
-                    loadedImage.GetPixel(i, NormalizeIndex(j + 3, currentWdith - 1)).R * this.wavelet.analysisHigh[7] +
-                    loadedImage.GetPixel(i, NormalizeIndex(j + 4, currentWdith - 1)).R * this.wavelet.analysisHigh[8];
+                    loadedImage.GetPixel(i, NormalizeIndex(j - 4, currentWidth - 1)).R * this.wavelet.analysisHigh[0] +
+                    loadedImage.GetPixel(i, NormalizeIndex(j - 3, currentWidth - 1)).R * this.wavelet.analysisHigh[1] +
+                    loadedImage.GetPixel(i, NormalizeIndex(j - 2, currentWidth - 1)).R * this.wavelet.analysisHigh[2] +
+                    loadedImage.GetPixel(i, NormalizeIndex(j - 1, currentWidth - 1)).R * this.wavelet.analysisHigh[3] +
+                    loadedImage.GetPixel(i, NormalizeIndex(j, currentWidth - 1)).R * this.wavelet.analysisHigh[4] +
+                    loadedImage.GetPixel(i, NormalizeIndex(j + 1, currentWidth - 1)).R * this.wavelet.analysisHigh[5] +
+                    loadedImage.GetPixel(i, NormalizeIndex(j + 2, currentWidth - 1)).R * this.wavelet.analysisHigh[6] +
+                    loadedImage.GetPixel(i, NormalizeIndex(j + 3, currentWidth - 1)).R * this.wavelet.analysisHigh[7] +
+                    loadedImage.GetPixel(i, NormalizeIndex(j + 4, currentWidth - 1)).R * this.wavelet.analysisHigh[8];
                 }
 
                 int mergedVectorIndex = 0;
@@ -222,7 +231,7 @@ namespace AdvancedCompressingMethods
                     mergedVectorIndex++;
                 }
 
-                for (int x = 0; x < currentWdith; x++)
+                for (int x = 0; x < currentWidth; x++)
                 {
                     loadedImageCopy.SetPixel(i, x, Color.FromArgb(mergedVector[x], mergedVector[x], mergedVector[x]));
                 }
@@ -230,6 +239,8 @@ namespace AdvancedCompressingMethods
                 loadedImageCopyPictureBox.Image = loadedImageCopy;
             }
             loadedImageCopyPictureBox.Image = loadedImageCopy;
+
+            UpdateImageDimensions();
         }
 
         private void AnH1_Click(object sender, EventArgs e)
@@ -260,7 +271,7 @@ namespace AdvancedCompressingMethods
 
             for (int i = 0; i < currentHeight; i++)
             {
-                for (int j = 0; j < currentWdith; j++)
+                for (int j = 0; j < currentWidth; j++)
                 {
                     error = (loadedImage.GetPixel(i, j).R + loadedImage.GetPixel(i, j).G + loadedImage.GetPixel(i, j).B) / 3 -
                         (loadedImageCopy.GetPixel(i, j).R + loadedImageCopy.GetPixel(i, j).G + loadedImageCopy.GetPixel(i, j).B) / 3;
@@ -279,19 +290,21 @@ namespace AdvancedCompressingMethods
             labelMaxError.Text = "Max: " + maxError;
         }
 
-        private void textBoxScale_TextChanged(object sender, EventArgs e)
+        private void RefreshScale_Click(object sender, EventArgs e)
         {
             int number;
             int.TryParse(textBoxScale.Text, out number);
             this.scale = number;
 
-            labelMaxError.Text = "ASD: " + this.scale;
+            int.TryParse(textBoxOffset.Text, out number);
+            this.offset = number;
+
             ScaleImage();
         }
 
         ~Form1()
         {
-            fileController.close();
+            //fileController.close();
         }
     }
 }
