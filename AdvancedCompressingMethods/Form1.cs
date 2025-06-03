@@ -219,6 +219,8 @@ namespace AdvancedCompressingMethods
                         }
                     }
 
+                    fileController.closeReader();
+
                     for (int i = 0; i < 512; i++)
                     {
                         for (int j = 0; j < 512; j++)
