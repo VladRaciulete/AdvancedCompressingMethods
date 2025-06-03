@@ -10,7 +10,7 @@ namespace AdvancedCompressingMethods
     {
         private FileStream inputFileStream;
         private FileStream outputFileStream;
-        private BinaryReader reader;
+        public BinaryReader reader;
         private BinaryWriter writer;
         private byte readBuffer;
         private byte writeBuffer;
@@ -20,18 +20,42 @@ namespace AdvancedCompressingMethods
 
         public FileController(string inputFileName, string outputFileName)
         {
-            inputFileStream = new FileStream(inputFileName, FileMode.Open, FileAccess.Read);
-            reader = new BinaryReader(inputFileStream);
+            //inputFileStream = new FileStream(inputFileName, FileMode.Open, FileAccess.Read);
+            //reader = new BinaryReader(inputFileStream);
 
-            outputFileStream = new FileStream(outputFileName, FileMode.Create, FileAccess.Write);
-            writer = new BinaryWriter(outputFileStream);
+            //outputFileStream = new FileStream(outputFileName, FileMode.Create, FileAccess.Write);
+            //writer = new BinaryWriter(outputFileStream);
 
             readBuffer = 0;
             writeBuffer = 0;
             readCounter = 0;
             writeCounter = 0;
 
+            //inputFileLength = inputFileStream.Length;
+        }
+
+        public void OpenInputFileStream(string inputFileName)
+        {
+            inputFileStream = new FileStream(inputFileName, FileMode.Open, FileAccess.Read);
+            reader = new BinaryReader(inputFileStream);
+
             inputFileLength = inputFileStream.Length;
+        }
+
+        public void OpenOutputFileStream(string outputFileName)
+        {
+            outputFileStream = new FileStream(outputFileName, FileMode.Create, FileAccess.Write);
+            writer = new BinaryWriter(outputFileStream);
+        }
+
+        public void closeReader()
+        {
+            reader.Close();
+        }
+
+        public void closeWriter()
+        {
+            writer.Close();
         }
 
         public void close()
@@ -52,7 +76,17 @@ namespace AdvancedCompressingMethods
             return reader.ReadByte();
         }
 
+        public double ReadDouble()
+        {
+            return reader.ReadDouble();
+        }
+
         public void WriteByte(byte b)
+        {
+            writer.Write(b);
+        }
+
+        public void WriteDouble(double b)
         {
             writer.Write(b);
         }
