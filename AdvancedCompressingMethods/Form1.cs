@@ -4,15 +4,26 @@ namespace AdvancedCompressingMethods
 {
     public partial class Form1 : Form
     {
-        FileController fileController = new FileController("input.mp4", "output.mp4");
+        //System.Diagnostics.Debug.WriteLine(4);
+        //MessageBox.Show("a");
+        FileController fileController = new FileController("input.txt", "output.txt");
+        ArithmeticCoder arithmeticCoder = new ArithmeticCoder();
+
         public Form1()
         {
             InitializeComponent();
+            start();
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
         }
+
+        private void start() {
+            arithmeticCoder.StartModel();
+            arithmeticCoder.UpdateModel();
+        }
+
 
         ~Form1()
         {
