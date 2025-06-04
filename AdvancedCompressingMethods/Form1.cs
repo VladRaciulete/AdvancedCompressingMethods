@@ -12,18 +12,22 @@ namespace AdvancedCompressingMethods
         public Form1()
         {
             InitializeComponent();
-            start();
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
         }
 
-        private void start() {
+        private void start()
+        {
             arithmeticCoder.StartModel();
             arithmeticCoder.UpdateModel();
         }
 
+        private void buttonEncode_Click(object sender, EventArgs e)
+        {
+            start();
+        }
 
         ~Form1()
         {
