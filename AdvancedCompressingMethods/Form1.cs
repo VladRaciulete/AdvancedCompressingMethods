@@ -49,17 +49,12 @@ namespace AdvancedCompressingMethods
             UpdateWidthHeightLabels();
         }
 
-
         private int NormalizeIndex(int n, int maxValue)
         {
             if (n < 0)
-            {
-                return Math.Abs(n);
-            }
-            else if (n > maxValue)
-            {
-                return n - (maxValue - n) * (-1);
-            }
+                return -n;
+            else if (n >= maxValue)
+                return 2 * maxValue - n - 2;
             return n;
         }
 
@@ -111,6 +106,42 @@ namespace AdvancedCompressingMethods
         private void UpdateWidthHeightLabels() {
             labelWidth.Text = "w: " + this.currentWidth;
             labelHeight.Text = "h: " + this.currentHeight;
+        }
+
+        private void MinMaxError_Click(object sender, EventArgs e)
+        {
+            int error;
+            int minError = 400;
+            int maxError = -1;
+
+            for (int i = 0; i < currentHeight; i++)
+            {
+                for (int j = 0; j < currentWidth; j++)
+                {
+                    //MessageBox.Show("W: " + currentWidth + " H: " + currentHeight);
+
+                    Color loadedImagePixel = loadedImage.GetPixel(j, i);
+                    Color loadedImageCopyPixel = loadedImageCopy.GetPixel(j, i);
+
+                    int loadedImagePixelGrayscale = (loadedImagePixel.R + loadedImagePixel.G + loadedImagePixel.B) / 3;
+                    int loadedImageCopyPixelGrayscale = (loadedImageCopyPixel.R + loadedImageCopyPixel.G + loadedImageCopyPixel.B) / 3;
+
+                    error = loadedImagePixelGrayscale - loadedImageCopyPixelGrayscale;
+
+                    if (error > maxError)
+                    {
+                        maxError = error;
+                    }
+                    if (error < minError)
+                    {
+                        minError = error;
+                    }
+
+                    //System.Diagnostics.Debug.WriteLine($"Pixel ({i},{j}) — original: {loadedImagePixelGrayscale}, restored: {loadedImageCopyPixelGrayscale}, error: {error}");
+                }
+            }
+            labelMinError.Text = "Min: " + minError;
+            labelMaxError.Text = "Max: " + maxError;
         }
 
         private void LoadButton_Click(object sender, EventArgs e)
@@ -176,10 +207,6 @@ namespace AdvancedCompressingMethods
                 string filePath = saveFileDialog.FileName;
 
                 fileController.OpenOutputFileStream(filePath);
-
-                //System.IO.File.WriteAllText(filePath, "This is some text that will be saved in the file.");
-
-                //MessageBox.Show(filePath);
             }
 
             for (int i = 0; i < imageHeight; i++)
@@ -365,30 +392,6 @@ namespace AdvancedCompressingMethods
 
                     loadedImageCopy.SetPixel(i, x, Color.FromArgb(value, value, value));
                 }
-
-                //string asdasd = "";
-
-                //if (level == 5)
-                //{
-                //    for (int x = 0; x < currentWidth / 2; x++)
-                //    {
-                //        //System.Diagnostics.Debug.WriteLine("w: " + currentWidth / 2);
-                //        //System.Diagnostics.Debug.WriteLine("h: " + currentHeight / 2);
-
-                //        //System.Diagnostics.Debug.WriteLine(i + " |||| " + x);
-
-                //        if (i > 15)
-                //        {
-                //            continue;
-                //        }
-
-                //        this.imageMatrix[i, x] = mergedVector[x];
-
-                //        asdasd += mergedVector[x].ToString() + " ";
-                //    }
-
-                //    System.Diagnostics.Debug.WriteLine(asdasd);
-                //}
             }
             loadedImageCopyPictureBox.Image = loadedImageCopy;
 
@@ -418,9 +421,9 @@ namespace AdvancedCompressingMethods
                     }
                     else
                     {
-                        highVar[highIndex] = this.imageMatrix[i, j];
-                        highIndex += 1;
                         highVar[highIndex] = 0;
+                        highIndex += 1;
+                        highVar[highIndex] = this.imageMatrix[i, j];
                         highIndex += 1;
                     }
                 }
@@ -468,6 +471,18 @@ namespace AdvancedCompressingMethods
 
         private void SynthesisVertical(int level)
         {
+            if (level == 5)
+            {
+                if (currentWidth != 32)
+                {
+                    currentWidth = 32;
+                }
+                if (currentHeight != 32)
+                {
+                    currentHeight = 32;
+                }
+            }
+
             double[] high = new double[currentWidth];
             double[] low = new double[currentWidth];
 
@@ -489,9 +504,9 @@ namespace AdvancedCompressingMethods
                     }
                     else
                     {
-                        highVar[highIndex] = this.imageMatrix[j, i];
-                        highIndex += 1;
                         highVar[highIndex] = 0;
+                        highIndex += 1;
+                        highVar[highIndex] = this.imageMatrix[j, i];
                         highIndex += 1;
                     }
                 }
@@ -533,33 +548,6 @@ namespace AdvancedCompressingMethods
             loadedImageCopyPictureBox.Image = loadedImageCopy;
 
             //UpdateImageDimensions(true);
-        }
-
-        private void MinMaxError_Click(object sender, EventArgs e)
-        {
-            int error;
-            int minError = 400;
-            int maxError = -1;
-
-            for (int i = 0; i < currentHeight; i++)
-            {
-                for (int j = 0; j < currentWidth; j++)
-                {
-                    error = (loadedImage.GetPixel(i, j).R + loadedImage.GetPixel(i, j).G + loadedImage.GetPixel(i, j).B) / 3 -
-                        (loadedImageCopy.GetPixel(i, j).R + loadedImageCopy.GetPixel(i, j).G + loadedImageCopy.GetPixel(i, j).B) / 3;
-
-                    if (error > maxError)
-                    {
-                        maxError = error;
-                    }
-                    if (error < minError)
-                    {
-                        minError = error;
-                    }
-                }
-            }
-            labelMinError.Text = "Min: " + minError;
-            labelMaxError.Text = "Max: " + maxError;
         }
 
         private void RefreshScale_Click(object sender, EventArgs e)
