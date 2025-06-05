@@ -29,23 +29,47 @@
         private void InitializeComponent()
         {
             buttonEncode = new Button();
+            buttonLoad = new Button();
+            buttonDecode = new Button();
             SuspendLayout();
             // 
             // buttonEncode
             // 
-            buttonEncode.Location = new Point(194, 293);
+            buttonEncode.Location = new Point(462, 230);
             buttonEncode.Name = "buttonEncode";
-            buttonEncode.Size = new Size(75, 23);
+            buttonEncode.Size = new Size(74, 24);
             buttonEncode.TabIndex = 0;
             buttonEncode.Text = "Encode";
             buttonEncode.UseVisualStyleBackColor = true;
             buttonEncode.Click += buttonEncode_Click;
+            // 
+            // buttonLoad
+            // 
+            buttonLoad.Location = new Point(463, 200);
+            buttonLoad.Name = "buttonLoad";
+            buttonLoad.Size = new Size(74, 24);
+            buttonLoad.TabIndex = 1;
+            buttonLoad.Text = "Load";
+            buttonLoad.UseVisualStyleBackColor = true;
+            buttonLoad.Click += buttonLoad_Click;
+            // 
+            // buttonDecode
+            // 
+            buttonDecode.Location = new Point(462, 260);
+            buttonDecode.Name = "buttonDecode";
+            buttonDecode.Size = new Size(74, 24);
+            buttonDecode.TabIndex = 2;
+            buttonDecode.Text = "Decode";
+            buttonDecode.UseVisualStyleBackColor = true;
+            buttonDecode.Click += buttonDecode_Click;
             // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(984, 461);
+            Controls.Add(buttonDecode);
+            Controls.Add(buttonLoad);
             Controls.Add(buttonEncode);
             Margin = new Padding(3, 2, 3, 2);
             Name = "Form1";
@@ -57,5 +81,7 @@
         #endregion
 
         private Button buttonEncode;
+        private Button buttonLoad;
+        private Button buttonDecode;
     }
 }

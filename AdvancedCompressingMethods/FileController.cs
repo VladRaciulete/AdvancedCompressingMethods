@@ -72,9 +72,17 @@ namespace AdvancedCompressingMethods
             return remainingBits;
         }
 
-        public byte ReadByte()
+        public int ReadByte()
         {
-            return reader.ReadByte();
+            try
+            {
+                return reader.ReadByte();
+            }
+            catch (EndOfStreamException)
+            {
+                reader.Close();
+                return -1;
+            }
         }
 
         public void WriteByte(byte b)
@@ -86,18 +94,20 @@ namespace AdvancedCompressingMethods
         {
             if (readCounter == 0)
             {
-                readBuffer = reader.ReadByte();
+                if (reader.BaseStream.Position >= reader.BaseStream.Length)
+                {
+                    return 0;
+                }
+
+                int byteRead = reader.ReadByte();
+                readBuffer = (byte)byteRead;
                 readCounter = 8;
             }
 
-            if (readCounter > 0)
-            {
-                int firstBit = (readBuffer >> (7 - (8 - readCounter))) & 1;
-                readCounter -= 1;
-                return firstBit;
-            }
+            int bit = (readBuffer >> (readCounter - 1)) & 1;
+            readCounter--;
 
-            return 1;
+            return bit;
         }
 
         public void WriteSingleBit(int bit)
@@ -131,6 +141,17 @@ namespace AdvancedCompressingMethods
             for (int i = 0; i < n; i++)
             {
                 WriteSingleBit(vector[i]);
+            }
+        }
+
+        public void FlushWriteBuffer()
+        {
+            if (writeCounter > 0)
+            {
+                writeBuffer <<= (8 - writeCounter);
+                writer.Write(writeBuffer);
+                writeCounter = 0;
+                writeBuffer = 0;
             }
         }
 
