@@ -217,6 +217,8 @@ namespace AdvancedCompressingMethods
                 }
             }
 
+            fileController.WriteDouble(this.currentWidth);
+
             MessageBox.Show("File saved!");
             fileController.closeWriter();
         }
@@ -246,6 +248,8 @@ namespace AdvancedCompressingMethods
                         }
                     }
 
+                    int size = (int)fileController.ReadDouble();
+
                     fileController.closeReader();
 
                     for (int i = 0; i < 512; i++)
@@ -261,8 +265,8 @@ namespace AdvancedCompressingMethods
 
                     this.imageWidth = loadedImageCopy.Width;
                     this.imageHeight = loadedImageCopy.Height;
-                    this.currentWidth = 32;
-                    this.currentHeight = 32;
+                    this.currentWidth = size;
+                    this.currentHeight = size;
 
                     MessageBox.Show("File loaded!");
 
