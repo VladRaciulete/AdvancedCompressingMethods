@@ -9,7 +9,7 @@ namespace AdvancedCompressingMethods
     public partial class Form1 : Form
     {
         //System.Diagnostics.Debug.WriteLine(4);
-        FileController fileController = new FileController("waveletInput.wvt", "waveletOutput.wvt");
+        FileController fileController = new FileController();
         Wavelet wavelet = new Wavelet();
         private Bitmap loadedImage;
         private Bitmap loadedImageCopy;
