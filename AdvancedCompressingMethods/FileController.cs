@@ -18,7 +18,7 @@ namespace AdvancedCompressingMethods
         private int writeCounter;
         private long inputFileLength;
 
-        public FileController(string inputFileName, string outputFileName)
+        public FileController()
         {
             //inputFileStream = new FileStream(inputFileName, FileMode.Open, FileAccess.Read);
             //reader = new BinaryReader(inputFileStream);

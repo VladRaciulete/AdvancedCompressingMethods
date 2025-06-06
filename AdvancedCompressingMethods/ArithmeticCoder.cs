@@ -11,7 +11,7 @@ namespace AdvancedCompressingMethods
 {
     class ArithmeticCoder
     {
-        public FileController fileController = new FileController("", "");
+        public FileController fileController = new FileController();
 
         public int[] char_to_index = new int[NO_OF_CHARS];     /* To index from character          */
         public byte[] index_to_char = new byte[NO_OF_SYMBOLS + 1];     /* To character from index    */
@@ -67,7 +67,7 @@ namespace AdvancedCompressingMethods
                 int symbol = char_to_index[character];
 
                 EncodeSymbol(symbol, cumulative_freq);
-                UpdateModel(symbol);
+                UpdateModel_Optimized(symbol);
             }
             EncodeSymbol(EOF_SYMBOL, cumulative_freq);
             DoneEncoding();
@@ -132,7 +132,7 @@ namespace AdvancedCompressingMethods
                 }
                 int character = index_to_char[symbol];
                 fileController.WriteByte((byte)character);
-                UpdateModel(symbol);
+                UpdateModel_Optimized(symbol);
             }
 
             fileController.closeWriter();
@@ -148,7 +148,7 @@ namespace AdvancedCompressingMethods
 
             range = (High - Low) + 1;
 
-            cumulative = (((ulong)(value - Low) + 1) * (ulong)cumulative_freq[0] - 1) / range; //????????????????????????????????????
+            cumulative = (((ulong)(value - Low) + 1) * (ulong)cumulative_freq[0] - 1) / range;
 
             for (symbol = 1; (ulong)cumulative_freq[symbol] > cumulative; symbol++);
 
@@ -184,7 +184,7 @@ namespace AdvancedCompressingMethods
             return symbol;
         }
 
-        public void UpdateModel(int symbol)
+        public void UpdateModel_Optimized(int symbol)
         {
             if (cumulative_freq[0] == MAX_FREQUENCY)
             {
@@ -192,10 +192,9 @@ namespace AdvancedCompressingMethods
                 for (int i = NO_OF_SYMBOLS; i >= 0; i--)
                 {
                     freq[i] = (freq[i] + 1) / 2;
-                    if (freq[i] == 0) freq[i] = 1; // prevent zero frequency
+                    if (freq[i] == 0) freq[i] = 1;
                 }
 
-                // Recalculate cumulative_freq
                 for (int i = NO_OF_SYMBOLS; i >= 0; i--)
                 {
                     cumulative_freq[i] = cumulative;
@@ -205,14 +204,13 @@ namespace AdvancedCompressingMethods
 
             freq[symbol]++;
 
-            // Update cumulative_freq[0..symbol - 1] only
             for (int i = symbol - 1; i >= 0; i--)
             {
                 cumulative_freq[i]++;
             }
         }
 
-        public void UpdateModel_UNOPTIMIZED(int symbol)
+        public void UpdateModel_Unoptimized(int symbol)
         {
             int i;
             if (cumulative_freq[0] == MAX_FREQUENCY)

@@ -5,9 +5,6 @@ namespace AdvancedCompressingMethods
 {
     public partial class Form1 : Form
     {
-        //System.Diagnostics.Debug.WriteLine(4);
-        //MessageBox.Show("a");
-        //FileController fileController = new FileController("input.txt", "output.txt");
         ArithmeticCoder arithmeticCoder = new ArithmeticCoder();
 
         public Form1()
@@ -96,7 +93,6 @@ namespace AdvancedCompressingMethods
 
         ~Form1()
         {
-            //fileController.close();
         }
     }
 }
