@@ -8,7 +8,6 @@ namespace AdvancedCompressingMethods
 {
     public partial class Form1 : Form
     {
-        //System.Diagnostics.Debug.WriteLine(4);
         FileController fileController = new FileController();
         Wavelet wavelet = new Wavelet();
         private Bitmap loadedImage;
@@ -84,8 +83,6 @@ namespace AdvancedCompressingMethods
             int.TryParse(textBoxOffset.Text, out number);
             this.offset = number;
 
-            labelMinError.Text = "h|w: " + currentHeight + " x " + currentWidth;
-
             for (int i = 0; i < imageHeight; i++)
             {
                 for (int j = 0; j < imageWidth; j++)
@@ -103,7 +100,8 @@ namespace AdvancedCompressingMethods
             loadedImageCopyPictureBox.Image = loadedImageCopy;
         }
 
-        private void UpdateWidthHeightLabels() {
+        private void UpdateWidthHeightLabels()
+        {
             labelWidth.Text = "w: " + this.currentWidth;
             labelHeight.Text = "h: " + this.currentHeight;
         }
@@ -468,7 +466,8 @@ namespace AdvancedCompressingMethods
             }
             loadedImageCopyPictureBox.Image = loadedImageCopy;
 
-            if (level > 1) {
+            if (level > 1)
+            {
                 UpdateImageDimensions(true);
             }
         }

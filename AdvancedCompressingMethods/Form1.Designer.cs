@@ -61,16 +61,17 @@
             SaveFileButton = new Button();
             labelWidth = new Label();
             labelHeight = new Label();
+            labelScale = new Label();
+            labelOffset = new Label();
             ((System.ComponentModel.ISupportInitialize)loadedImagePictureBox).BeginInit();
             ((System.ComponentModel.ISupportInitialize)loadedImageCopyPictureBox).BeginInit();
             SuspendLayout();
             // 
             // AnH1
             // 
-            AnH1.Location = new Point(1410, 16);
-            AnH1.Margin = new Padding(3, 4, 3, 4);
+            AnH1.Location = new Point(1059, 12);
             AnH1.Name = "AnH1";
-            AnH1.Size = new Size(86, 31);
+            AnH1.Size = new Size(75, 23);
             AnH1.TabIndex = 0;
             AnH1.Text = "AnH1";
             AnH1.UseVisualStyleBackColor = true;
@@ -78,10 +79,9 @@
             // 
             // AnV1
             // 
-            AnV1.Location = new Point(1410, 55);
-            AnV1.Margin = new Padding(3, 4, 3, 4);
+            AnV1.Location = new Point(1059, 41);
             AnV1.Name = "AnV1";
-            AnV1.Size = new Size(86, 31);
+            AnV1.Size = new Size(75, 23);
             AnV1.TabIndex = 1;
             AnV1.Text = "AnV1";
             AnV1.UseVisualStyleBackColor = true;
@@ -89,10 +89,9 @@
             // 
             // AnH2
             // 
-            AnH2.Location = new Point(1410, 93);
-            AnH2.Margin = new Padding(3, 4, 3, 4);
+            AnH2.Location = new Point(1059, 70);
             AnH2.Name = "AnH2";
-            AnH2.Size = new Size(86, 31);
+            AnH2.Size = new Size(75, 23);
             AnH2.TabIndex = 2;
             AnH2.Text = "AnH2";
             AnH2.UseVisualStyleBackColor = true;
@@ -100,10 +99,9 @@
             // 
             // AnV2
             // 
-            AnV2.Location = new Point(1410, 132);
-            AnV2.Margin = new Padding(3, 4, 3, 4);
+            AnV2.Location = new Point(1059, 99);
             AnV2.Name = "AnV2";
-            AnV2.Size = new Size(86, 31);
+            AnV2.Size = new Size(75, 23);
             AnV2.TabIndex = 3;
             AnV2.Text = "AnV2";
             AnV2.UseVisualStyleBackColor = true;
@@ -111,10 +109,9 @@
             // 
             // AnH3
             // 
-            AnH3.Location = new Point(1410, 171);
-            AnH3.Margin = new Padding(3, 4, 3, 4);
+            AnH3.Location = new Point(1059, 128);
             AnH3.Name = "AnH3";
-            AnH3.Size = new Size(86, 31);
+            AnH3.Size = new Size(75, 23);
             AnH3.TabIndex = 4;
             AnH3.Text = "AnH3";
             AnH3.UseVisualStyleBackColor = true;
@@ -122,10 +119,9 @@
             // 
             // SyH1
             // 
-            SyH1.Location = new Point(1527, 16);
-            SyH1.Margin = new Padding(3, 4, 3, 4);
+            SyH1.Location = new Point(1161, 12);
             SyH1.Name = "SyH1";
-            SyH1.Size = new Size(86, 31);
+            SyH1.Size = new Size(75, 23);
             SyH1.TabIndex = 5;
             SyH1.Text = "SyH1";
             SyH1.UseVisualStyleBackColor = true;
@@ -133,10 +129,9 @@
             // 
             // SyV1
             // 
-            SyV1.Location = new Point(1527, 55);
-            SyV1.Margin = new Padding(3, 4, 3, 4);
+            SyV1.Location = new Point(1161, 41);
             SyV1.Name = "SyV1";
-            SyV1.Size = new Size(86, 31);
+            SyV1.Size = new Size(75, 23);
             SyV1.TabIndex = 6;
             SyV1.Text = "SyV1";
             SyV1.UseVisualStyleBackColor = true;
@@ -144,10 +139,9 @@
             // 
             // SyH2
             // 
-            SyH2.Location = new Point(1527, 93);
-            SyH2.Margin = new Padding(3, 4, 3, 4);
+            SyH2.Location = new Point(1161, 70);
             SyH2.Name = "SyH2";
-            SyH2.Size = new Size(86, 31);
+            SyH2.Size = new Size(75, 23);
             SyH2.TabIndex = 7;
             SyH2.Text = "SyH2";
             SyH2.UseVisualStyleBackColor = true;
@@ -155,10 +149,9 @@
             // 
             // SyV2
             // 
-            SyV2.Location = new Point(1527, 132);
-            SyV2.Margin = new Padding(3, 4, 3, 4);
+            SyV2.Location = new Point(1161, 99);
             SyV2.Name = "SyV2";
-            SyV2.Size = new Size(86, 31);
+            SyV2.Size = new Size(75, 23);
             SyV2.TabIndex = 8;
             SyV2.Text = "SyV2";
             SyV2.UseVisualStyleBackColor = true;
@@ -166,10 +159,9 @@
             // 
             // SyH3
             // 
-            SyH3.Location = new Point(1527, 171);
-            SyH3.Margin = new Padding(3, 4, 3, 4);
+            SyH3.Location = new Point(1161, 128);
             SyH3.Name = "SyH3";
-            SyH3.Size = new Size(86, 31);
+            SyH3.Size = new Size(75, 23);
             SyH3.TabIndex = 9;
             SyH3.Text = "SyH3";
             SyH3.UseVisualStyleBackColor = true;
@@ -177,10 +169,9 @@
             // 
             // LoadButton
             // 
-            LoadButton.Location = new Point(14, 707);
-            LoadButton.Margin = new Padding(3, 4, 3, 4);
+            LoadButton.Location = new Point(12, 402);
             LoadButton.Name = "LoadButton";
-            LoadButton.Size = new Size(86, 31);
+            LoadButton.Size = new Size(75, 23);
             LoadButton.TabIndex = 10;
             LoadButton.Text = "Load";
             LoadButton.UseVisualStyleBackColor = true;
@@ -188,46 +179,43 @@
             // 
             // loadedImagePictureBox
             // 
-            loadedImagePictureBox.Location = new Point(14, 16);
-            loadedImagePictureBox.Margin = new Padding(3, 4, 3, 4);
+            loadedImagePictureBox.Location = new Point(12, 12);
             loadedImagePictureBox.Name = "loadedImagePictureBox";
-            loadedImagePictureBox.Size = new Size(512, 512);
+            loadedImagePictureBox.Size = new Size(448, 384);
             loadedImagePictureBox.TabIndex = 11;
             loadedImagePictureBox.TabStop = false;
             // 
             // loadedImageCopyPictureBox
             // 
-            loadedImageCopyPictureBox.Location = new Point(543, 16);
-            loadedImageCopyPictureBox.Margin = new Padding(3, 4, 3, 4);
+            loadedImageCopyPictureBox.Location = new Point(475, 12);
             loadedImageCopyPictureBox.Name = "loadedImageCopyPictureBox";
-            loadedImageCopyPictureBox.Size = new Size(512, 512);
+            loadedImageCopyPictureBox.Size = new Size(448, 384);
             loadedImageCopyPictureBox.TabIndex = 12;
             loadedImageCopyPictureBox.TabStop = false;
             // 
             // labelMinError
             // 
             labelMinError.AutoSize = true;
-            labelMinError.Location = new Point(96, 777);
+            labelMinError.Location = new Point(93, 434);
             labelMinError.Name = "labelMinError";
-            labelMinError.Size = new Size(34, 20);
+            labelMinError.Size = new Size(28, 15);
             labelMinError.TabIndex = 14;
             labelMinError.Text = "Min";
             // 
             // labelMaxError
             // 
             labelMaxError.AutoSize = true;
-            labelMaxError.Location = new Point(95, 815);
+            labelMaxError.Location = new Point(93, 462);
             labelMaxError.Name = "labelMaxError";
-            labelMaxError.Size = new Size(37, 20);
+            labelMaxError.Size = new Size(29, 15);
             labelMaxError.TabIndex = 15;
             labelMaxError.Text = "Max";
             // 
             // AnV3
             // 
-            AnV3.Location = new Point(1410, 209);
-            AnV3.Margin = new Padding(3, 4, 3, 4);
+            AnV3.Location = new Point(1059, 157);
             AnV3.Name = "AnV3";
-            AnV3.Size = new Size(86, 31);
+            AnV3.Size = new Size(75, 23);
             AnV3.TabIndex = 16;
             AnV3.Text = "AnV3";
             AnV3.UseVisualStyleBackColor = true;
@@ -235,10 +223,9 @@
             // 
             // AnH4
             // 
-            AnH4.Location = new Point(1410, 248);
-            AnH4.Margin = new Padding(3, 4, 3, 4);
+            AnH4.Location = new Point(1059, 186);
             AnH4.Name = "AnH4";
-            AnH4.Size = new Size(86, 31);
+            AnH4.Size = new Size(75, 23);
             AnH4.TabIndex = 17;
             AnH4.Text = "AnH4";
             AnH4.UseVisualStyleBackColor = true;
@@ -246,10 +233,9 @@
             // 
             // AnV4
             // 
-            AnV4.Location = new Point(1410, 287);
-            AnV4.Margin = new Padding(3, 4, 3, 4);
+            AnV4.Location = new Point(1059, 215);
             AnV4.Name = "AnV4";
-            AnV4.Size = new Size(86, 31);
+            AnV4.Size = new Size(75, 23);
             AnV4.TabIndex = 18;
             AnV4.Text = "AnV4";
             AnV4.UseVisualStyleBackColor = true;
@@ -257,10 +243,9 @@
             // 
             // AnH5
             // 
-            AnH5.Location = new Point(1410, 325);
-            AnH5.Margin = new Padding(3, 4, 3, 4);
+            AnH5.Location = new Point(1059, 244);
             AnH5.Name = "AnH5";
-            AnH5.Size = new Size(86, 31);
+            AnH5.Size = new Size(75, 23);
             AnH5.TabIndex = 19;
             AnH5.Text = "AnH5";
             AnH5.UseVisualStyleBackColor = true;
@@ -268,10 +253,9 @@
             // 
             // AnV5
             // 
-            AnV5.Location = new Point(1410, 364);
-            AnV5.Margin = new Padding(3, 4, 3, 4);
+            AnV5.Location = new Point(1059, 273);
             AnV5.Name = "AnV5";
-            AnV5.Size = new Size(86, 31);
+            AnV5.Size = new Size(75, 23);
             AnV5.TabIndex = 20;
             AnV5.Text = "AnV5";
             AnV5.UseVisualStyleBackColor = true;
@@ -279,10 +263,9 @@
             // 
             // SyV3
             // 
-            SyV3.Location = new Point(1527, 209);
-            SyV3.Margin = new Padding(3, 4, 3, 4);
+            SyV3.Location = new Point(1161, 157);
             SyV3.Name = "SyV3";
-            SyV3.Size = new Size(86, 31);
+            SyV3.Size = new Size(75, 23);
             SyV3.TabIndex = 21;
             SyV3.Text = "SyV3";
             SyV3.UseVisualStyleBackColor = true;
@@ -290,10 +273,9 @@
             // 
             // SyH4
             // 
-            SyH4.Location = new Point(1527, 248);
-            SyH4.Margin = new Padding(3, 4, 3, 4);
+            SyH4.Location = new Point(1161, 186);
             SyH4.Name = "SyH4";
-            SyH4.Size = new Size(86, 31);
+            SyH4.Size = new Size(75, 23);
             SyH4.TabIndex = 22;
             SyH4.Text = "SyH4";
             SyH4.UseVisualStyleBackColor = true;
@@ -301,10 +283,9 @@
             // 
             // SyV4
             // 
-            SyV4.Location = new Point(1527, 287);
-            SyV4.Margin = new Padding(3, 4, 3, 4);
+            SyV4.Location = new Point(1161, 215);
             SyV4.Name = "SyV4";
-            SyV4.Size = new Size(86, 31);
+            SyV4.Size = new Size(75, 23);
             SyV4.TabIndex = 23;
             SyV4.Text = "SyV4";
             SyV4.UseVisualStyleBackColor = true;
@@ -312,10 +293,9 @@
             // 
             // SyH5
             // 
-            SyH5.Location = new Point(1527, 325);
-            SyH5.Margin = new Padding(3, 4, 3, 4);
+            SyH5.Location = new Point(1161, 244);
             SyH5.Name = "SyH5";
-            SyH5.Size = new Size(86, 31);
+            SyH5.Size = new Size(75, 23);
             SyH5.TabIndex = 24;
             SyH5.Text = "SyH5";
             SyH5.UseVisualStyleBackColor = true;
@@ -323,10 +303,9 @@
             // 
             // SyV5
             // 
-            SyV5.Location = new Point(1527, 364);
-            SyV5.Margin = new Padding(3, 4, 3, 4);
+            SyV5.Location = new Point(1161, 273);
             SyV5.Name = "SyV5";
-            SyV5.Size = new Size(86, 31);
+            SyV5.Size = new Size(75, 23);
             SyV5.TabIndex = 25;
             SyV5.Text = "SyV5";
             SyV5.UseVisualStyleBackColor = true;
@@ -334,10 +313,9 @@
             // 
             // MinMaxError
             // 
-            MinMaxError.Location = new Point(14, 777);
-            MinMaxError.Margin = new Padding(3, 4, 3, 4);
+            MinMaxError.Location = new Point(12, 434);
             MinMaxError.Name = "MinMaxError";
-            MinMaxError.Size = new Size(74, 57);
+            MinMaxError.Size = new Size(75, 43);
             MinMaxError.TabIndex = 26;
             MinMaxError.Text = "Min Max Error";
             MinMaxError.UseVisualStyleBackColor = true;
@@ -345,18 +323,18 @@
             // 
             // textBoxScale
             // 
-            textBoxScale.Location = new Point(1265, 17);
-            textBoxScale.Margin = new Padding(3, 4, 3, 4);
+            textBoxScale.Location = new Point(991, 12);
             textBoxScale.Name = "textBoxScale";
-            textBoxScale.Size = new Size(45, 27);
+            textBoxScale.Size = new Size(40, 23);
             textBoxScale.TabIndex = 27;
             textBoxScale.Text = "1";
             // 
             // RefreshScale
             // 
-            RefreshScale.Location = new Point(14, 841);
+            RefreshScale.Location = new Point(938, 148);
+            RefreshScale.Margin = new Padding(3, 2, 3, 2);
             RefreshScale.Name = "RefreshScale";
-            RefreshScale.Size = new Size(118, 29);
+            RefreshScale.Size = new Size(103, 22);
             RefreshScale.TabIndex = 28;
             RefreshScale.Text = "RefreshScale";
             RefreshScale.UseVisualStyleBackColor = true;
@@ -364,18 +342,18 @@
             // 
             // textBoxOffset
             // 
-            textBoxOffset.Location = new Point(1265, 57);
+            textBoxOffset.Location = new Point(991, 42);
+            textBoxOffset.Margin = new Padding(3, 2, 3, 2);
             textBoxOffset.Name = "textBoxOffset";
-            textBoxOffset.Size = new Size(45, 27);
+            textBoxOffset.Size = new Size(40, 23);
             textBoxOffset.TabIndex = 29;
             textBoxOffset.Text = "0";
             // 
             // LoadFileButton
             // 
-            LoadFileButton.Location = new Point(579, 781);
-            LoadFileButton.Margin = new Padding(3, 4, 3, 4);
+            LoadFileButton.Location = new Point(651, 402);
             LoadFileButton.Name = "LoadFileButton";
-            LoadFileButton.Size = new Size(86, 31);
+            LoadFileButton.Size = new Size(75, 23);
             LoadFileButton.TabIndex = 30;
             LoadFileButton.Text = "Load File";
             LoadFileButton.UseVisualStyleBackColor = true;
@@ -383,10 +361,9 @@
             // 
             // SaveFileButton
             // 
-            SaveFileButton.Location = new Point(579, 820);
-            SaveFileButton.Margin = new Padding(3, 4, 3, 4);
+            SaveFileButton.Location = new Point(651, 431);
             SaveFileButton.Name = "SaveFileButton";
-            SaveFileButton.Size = new Size(86, 31);
+            SaveFileButton.Size = new Size(75, 23);
             SaveFileButton.TabIndex = 31;
             SaveFileButton.Text = "Save File";
             SaveFileButton.UseVisualStyleBackColor = true;
@@ -395,26 +372,46 @@
             // labelWidth
             // 
             labelWidth.AutoSize = true;
-            labelWidth.Location = new Point(1265, 104);
+            labelWidth.Location = new Point(991, 77);
             labelWidth.Name = "labelWidth";
-            labelWidth.Size = new Size(46, 20);
+            labelWidth.Size = new Size(37, 15);
             labelWidth.TabIndex = 32;
             labelWidth.Text = "width";
             // 
             // labelHeight
             // 
             labelHeight.AutoSize = true;
-            labelHeight.Location = new Point(1265, 132);
+            labelHeight.Location = new Point(991, 98);
             labelHeight.Name = "labelHeight";
-            labelHeight.Size = new Size(51, 20);
+            labelHeight.Size = new Size(41, 15);
             labelHeight.TabIndex = 33;
             labelHeight.Text = "height";
             // 
+            // labelScale
+            // 
+            labelScale.AutoSize = true;
+            labelScale.Location = new Point(951, 16);
+            labelScale.Name = "labelScale";
+            labelScale.Size = new Size(34, 15);
+            labelScale.TabIndex = 34;
+            labelScale.Text = "Scale";
+            // 
+            // labelOffset
+            // 
+            labelOffset.AutoSize = true;
+            labelOffset.Location = new Point(946, 45);
+            labelOffset.Name = "labelOffset";
+            labelOffset.Size = new Size(39, 15);
+            labelOffset.TabIndex = 35;
+            labelOffset.Text = "Offset";
+            // 
             // Form1
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1629, 973);
+            ClientSize = new Size(1425, 601);
+            Controls.Add(labelOffset);
+            Controls.Add(labelScale);
             Controls.Add(labelHeight);
             Controls.Add(labelWidth);
             Controls.Add(SaveFileButton);
@@ -448,6 +445,7 @@
             Controls.Add(AnH2);
             Controls.Add(AnV1);
             Controls.Add(AnH1);
+            Margin = new Padding(3, 2, 3, 2);
             Name = "Form1";
             Text = "Form1";
             Load += Form1_Load;
@@ -492,5 +490,7 @@
         private Button SaveFileButton;
         private Label labelWidth;
         private Label labelHeight;
+        private Label labelScale;
+        private Label labelOffset;
     }
 }
